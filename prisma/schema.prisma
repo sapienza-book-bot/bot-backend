@@ -1,0 +1,31 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+  binaryTargets   = ["native", "linux-musl", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URL")
+}
+
+model Book {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  author   String
+  isbn     String
+  name     String
+  price    Int
+  seller   User   @relation(fields: [sellerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sellerId String @db.ObjectId
+  subject  String
+
+  @@map("books")
+}
+
+model User {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  books      Book[]
+  telegramId String @unique
+
+  @@map("users")
+}

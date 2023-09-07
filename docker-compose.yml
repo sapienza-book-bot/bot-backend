@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - 4000:4000
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+    - node-network
+    command: npm run start:dev
+  mongo:
+    build: ./images/mongo/
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: prisma
+      MONGO_REPLICA_HOST: mongo
+      MONGO_REPLICA_PORT: 27018
+    ports:
+      - 27018:27018
+    networks:
+      - node-network
+
+volumes:
+  mongodata:
+
+networks:
+  node-network:
+    driver: bridge

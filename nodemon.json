@@ -1,0 +1,7 @@
+{
+    "verbose": true,
+    "watch": ["./**/*.js"],
+    "exec": "node ./dist/app.js",
+    "pollingInterval": 100,
+    "legacyWatch": true
+}
