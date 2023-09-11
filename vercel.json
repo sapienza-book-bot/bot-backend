@@ -11,6 +11,13 @@
             }
         }
     ],
+    "pipeline": {
+        "generate": {
+            "outputs": [
+                "dist/**"
+            ]
+        }
+    },
     "routes": [
         {
             "src": "/(.*)",
