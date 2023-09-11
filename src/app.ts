@@ -8,7 +8,7 @@ import { config } from './config';
 const serverStart = (port: number) => {
     prisma.$connect()
         .then(() => logger.info('mongodb succeffully connected'))
-        .catch((err) => logger.error(`error occured during connection to mongo: ${err}`));
+        .catch((err: Error) => logger.error(`error occured during connection to mongo: ${err}`));
     createExpressServer({
         cors: true,
         defaultErrorHandler: false,
